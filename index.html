@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!--
+TURTLE MANIA
+
+Main game code by Oliver Cox.
+Artwork by SOOP.
+
+
+I would like to thank the following people for providing resources that have been used in this project:
+ - The team behind jQuery, for providing such an amazing library. Without you, the internet literally wouldn't be the way it is today.
+ - The person behind webtoolkit.info, for providing a funciton to encode and decode base64 strings in JavaScript. Thank you for making your code publicly available - it has proven to be extremely helpful! The script was found here: http://www.webtoolkit.info/javascript-base64.html
+ - Pieroxy, the author of lz-string, a script which has managed to make our 350kb+ save files become less than 50kb. Thank you for your code, and in particular, thank you for releasing it under such a permissive license (I'll be honest, I've never come across the "DO WHAT THE FUCK YOU WANT TO PUBIC LICENSE" before! https://github.com/pieroxy/lz-string/blob/master/LICENSE.txt). The script can be found here: https://github.com/pieroxy/lz-string
+ - Joseph G, the person behind the perlin noise script I am using for biome generation. Seriously, your code was a lifesaver. I spent over ten hours trying to find a way to make biome generation work smoothly, but your code managed to help me do this in under half an hour. Thank you. <3. The script can be found here: https://github.com/josephg/noisejs
+ - Bryce Neal, the author of easystar.js, the script that I am using for pathfinding. Thank you for your code, it has helped massively. https://github.com/prettymuchbryce/easystarjs
+-->
+<head>
+<!-- iOS Webapp stuff -->
+<link rel="apple-touch-icon" href="images/logo.png">
+<link rel="apple-touch-startup-image" href="images/logo.png">
+<meta name="apple-mobile-web-app-title" content="Turtle Mania">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- End iOS Webapp stuff -->
+
+<!-- Favicon -->
+<link rel="icon" href="images/logo.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="images/logo.ico" type="image/x-icon"/>
+<!-- End Favicon -->
+
+<script src="scripts/data.js"></script> <!-- General game data -->
+
+<!-- Libraries -->
+<script src="scripts/lib/perlin.js"></script> <!-- Perlin noise -->
+<script src="scripts/lib/pathfinding.min.js"></script> <!-- A* Pathfinding -->
+<script src="scripts/lib/jquery-3.2.1.min.js"></script> <!-- jQuery -->
+<script src="scripts/lib/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="https://use.fontawesome.com/dfb145967a.js"></script> <!-- Font Awesome -->
+<script src="scripts/lib/random.js"></script> <!-- Functiosn for pseudorandom map generation -->
+<script src="scripts/lib/base64.min.js"></script> <!-- Base 64 function for encoding map exports -->
+<script src="scripts/lib/lz-string.min.js"></script>
+
+<script src="scripts/stats.js"></script> <!-- Player stats -->
+<script src="scripts/funcs.js"></script> <!-- General functions for game -->
+
+<script src="scripts/defs/achievements.js"></script> <!-- Achievements -->
+<script src="scripts/defs/items.js"></script> <!-- Item definitions -->
+<script src="scripts/defs/recipes.js"></script> <!-- Recipe definitions -->
+<script src="scripts/defs/planets.js"></script> <!-- Planet definitions -->
+<script src="scripts/defs/animation.js"></script> <!-- Animation definitions -->
+
+<script src="scripts/planets.js"></script> <!-- Functions for planets -->
+<script src="scripts/lang.js"></script> <!-- i18n functions -->
+
+<script src="scripts/modloader.js"></script> <!-- Mod loader -->
+
+<!-- Mods -->
+<div id="MODDIV"></div>
+
+<script src="scripts/findmods.js"></script>
+
+<!-- CSS sheets -->
+<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css" /> <!-- jQuery UI -->
+<link rel="stylesheet" type="text/css" href="style/main.css" /> <!-- Main CSS Sheet -->
+<link rel="stylesheet" type="text/css" href="style/selectors.css" /> <!-- CSS Rules for Selectors -->
+<link rel="stylesheet" type="text/css" href="style/menus.css" /> <!-- CSS Rules for Menus -->
+<link rel="stylesheet" type="text/css" href="style/misc.css" /> <!-- Miscellaneous CSS Rules -->
+
+<!-- Old Browser Warning -->
+<!--[if IE]>
+<div id="old-browser-warning" style="text-align: center;">
+<h1>You are using Internet Explorer, which is unable to support many features of modern JavaScript. This means that the game will be extremely likely to not work. Please consider downloading a better browser such as Google Chrome or Mozilla Firefox.</h1>
+</div>
+<script>
+setTimeout(function() {
+  document.getElementById("old-browser-warning").style.display = 'none';
+},5000);
+</script>
+<!-- <![endif]-->
+</head>
+
+<body id="body">
+<center id="hudtop">
+<span id="time">08:30</span>
+</center>
+
+<!-- Game Elements -->
+<canvas id="gridContainer" oncontextmenu="return false;"></canvas> <!-- Main Game Canvas -->
+<div id="menuContainer"></div> <!-- Used when displaying menus such as crafting and help -->
+<div id="mobileButtons" style="display: none;"> <!-- Mobile Controls -->
+<button id="mobileUp" onclick="mobileControl('up');" style="position: fixed; top: 0px; left: 32px; width: 32px; height: 32px;" title="Move Up"><i class="fa fa-chevron-up" aria-label="Move Up"></i></button>
+<button id="mobileDown" onclick="mobileControl('down');" style="position: fixed; top: 64px; left: 32px; width: 32px; height: 32px;" title="Move Down"><i class="fa fa-chevron-down" aria-label="Move Down"></i></button>
+<button id="mobileLeft" onclick="mobileControl('left');" style="position: fixed; top: 32px; left: 0px; width: 32px; height: 32px;" title="Move Left"><i class="fa fa-chevron-left" aria-label="Move Left"></i></button>
+<button id="mobileRight" onclick="mobileControl('right');" style="position: fixed; top: 32px; left: 64px; width: 32px; height: 32px;" title="Move Right"><i class="fa fa-chevron-right" aria-label="Move Right"></i></button>
+<button id="mobileInventory" onclick="mobileControl('inventory');" style="position: fixed; top: 32px; left: 32px; width: 32px; height: 32px;" title="Inventory"><i class="fa fa-archive" aria-label="Inventory"></i></button>
+<button id="mobileCraft" onclick="mobileControl('craft');" style="position: fixed; top: 0px; left: 0px; width: 32px; height: 32px;" title="Craft"><i class="fa fa-wrench" aria-label="Craft"></i></button>
+<button id="mobileHelp" onclick="mobileControl('help');" style="position: fixed; top: 0px; left: 64px; width: 32px; height: 32px;" title="Help"><i class="fa fa-question-circle" aria-label="Help"></i></button>
+<button id="mobileDrop" onclick="mobileControl('drop');" style="position: fixed; top: 64px; left: 0px; width: 32px; height: 32px;" title="Drop Held Item"><i class="fa fa-caret-square-o-down" aria-label="Drop Held Item"></i></button>
+<button id="mobileToolbar" onclick="mobileControl('toolbar');" style="position: fixed; top: 64px; left: 64px; width: 32px; height: 32px;" title="Cycle Toolbar"><i class="fa fa-repeat" aria-label="Cycle Toolbar"></i></button>
+</div>
+<center id="toolbar" class="toolbar"></center> <!-- Used to contain the toolbar -->
+<div id="healthbar" class="healthbar"> <!-- Health bar -->
+<span id="health" class="health"></span>
+</div>
+<div id="oxygenbar" class="oxygenbar"> <!-- Oxygen bar -->
+<span id="oxygen" class="oxygen"></span>
+</div>
+<div class="notice" id="notice"></div>
+
+<script src="scripts/player.js"></script> <!-- Player-related stuff -->
+<script src="scripts/canvasInit.js"></script> <!-- Canvas Initialisation -->
+<script src="scripts/inventory.js"></script> <!-- Inventory Functions (including crafting) -->
+<script src="scripts/help.js"></script> <!-- Help Menu Functions -->
+<script src="scripts/time.js"></script> <!-- Time and stuff -->
+<script src="scripts/map.js"></script> <!-- Main Map Functions -->
+<script>
+init();
+mapInit();
+</script>
+</body>
+</html>

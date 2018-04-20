@@ -1,0 +1,199 @@
+/* Fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+
+/* All Menus */
+.menu {
+  position: fixed;
+  left: 10vw;
+  top: 5vh;
+  width: 80vw;
+  height: 80vh;
+  background-color: #cccccc;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  overflow: auto;
+  padding-bottom: 32px;
+  pointer-events: auto;
+}
+.menu_slot {
+  background-color: #cccccc;
+  display: table-cell;
+  vertical-align: bottom;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 32px;
+  height: 32px;
+  text-align: right;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+
+/* Save Menu */
+#menu_save {
+  overflow: auto;
+}
+
+#save_button {
+  font-size: 1em;
+  font-weight: bold;
+  vertical-align: top;
+  width: calc(100% - 48px);
+  display: inline-block;
+  height: 36px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  background-color: #009900;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+.load_button {
+  vertical-align: top;
+  width: calc(100% - 48px);
+  display: inline-block;
+  height: 24px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #888888;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+
+/* Planet Menu */
+.menu_planets_button {
+  width: 90%;
+  height: 32px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: -2px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+}
+
+
+/* Crafting Menu */
+.categories_holder {
+  margin-bottom: 16px;
+}
+.category_button {
+  vertical-align: top;
+  width: 64px;
+  display: inline-block;
+  height: 36px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #888888;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+}
+.crafting_header_1 {
+  display: table-cell;
+  width: 32px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #96b7ff;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+}
+.crafting_header_2 {
+  display: table-cell;
+  width: 64px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #96b7ff;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+}
+.recipe {
+  display: block;
+  width: 100%;
+  pointer-events: auto;
+}
+#menu_crafting div:nth-child(odd){
+  background-color: #aaaaaa;
+}
+.recipe_blank {
+  display: table-cell;
+  background: transparent !important;
+  width: 32px;
+  height: 32px;
+}
+.recipe_slot {
+  background-color: #cccccc;
+  display: table-cell;
+  vertical-align: bottom;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 32px;
+  height: 32px;
+  text-align: right;
+  font-family: 'Ubuntu', sans-serif;
+}
+.craft_button_yes {
+  display: table-cell;
+  float: right;
+  margin-right: 4px;
+  margin-top: -36px;
+  background-color: #009900;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 36px;
+  height: 36px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #ffffff;
+  pointer-events: auto;
+  z-index: 999 !important;
+}
+.craft_button_no {
+  display: table-cell;
+  float: right;
+  margin-right: 4px;
+  margin-top: -36px;
+  background-color: #c61b1b;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 36px;
+  height: 36px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #ffffff;
+  pointer-events: auto;
+  z-index: 999 !important;
+}
+
+
+/* Help Menu */
+.help_content {
+  font-family: 'Ubuntu', sans-serif;
+  padding: 16px;
+}
+
+/* Skin Menu */
+.skin_tile {
+  display: inline-block;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 32px;
+  height: 32px;
+  margin-right: 4px;
+  background-image: url('../images/spritesheet.png');
+}

@@ -1,0 +1,21 @@
+/* Fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+/* Text and stuff */
+.title {
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+}
+.recipe_count {
+  font-family: 'Ubuntu', sans-serif;
+}
+.fa-check {
+  pointer-events: none !important;
+}
+
+
+.selector_preview {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}

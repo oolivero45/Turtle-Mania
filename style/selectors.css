@@ -1,0 +1,47 @@
+/* Selector layer */
+.selector {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  pointer-events: auto;
+}
+.selector_white {
+  background-image: url('../images/spritesheet.png');
+  background-position: 0px -128px;
+  pointer-events: auto;
+}
+.selector_red {
+  background-image: url('../images/spritesheet.png');
+  background-position: -32px -128px !important; 
+  pointer-events: auto;
+}
+.selector_orange {
+  background-image: url('../images/spritesheet.png');
+  background-position: -64px -128px;
+  pointer-events: auto;
+}
+.selector_yellow {
+  background-image: url('../images/spritesheet.png');
+  background-position: -96px -128px;
+  pointer-events: auto;
+}
+.selector_green {
+  background-image: url('../images/spritesheet.png');
+  background-position: -128px -128px;
+  pointer-events: auto;
+}
+.selector_aqua {
+  background-image: url('../images/spritesheet.png');
+  background-position: -160px -128px;
+  pointer-events: auto;
+}
+.selector_blue {
+  background-image: url('../images/spritesheet.png');
+  background-position: -192px -128px;
+  pointer-events: auto;
+}
+.selector_pink {
+  background-image: url('../images/spritesheet.png');
+  background-position: -224px -128px;
+  pointer-events: auto;
+}
