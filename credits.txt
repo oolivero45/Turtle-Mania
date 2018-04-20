@@ -1,0 +1,15 @@
+TURTLE MANIA
+
+Main game code by Oliver Cox.
+Artwork by SOOP.
+
+
+I would like to thank the following people for providing resources that have been used in this project:
+ - The team behind jQuery, for providing such an amazing library. Without you, the internet literally wouldn't be the way it is today.
+ - The person behind webtoolkit.info, for providing a funciton to encode and decode base64 strings in JavaScript. Thank you for making your code publicly available - it has proven to be extremely helpful! The script was found here: http://www.webtoolkit.info/javascript-base64.html
+ - Pieroxy, the author of lz-string, a script which has managed to make our 350kb+ save files become less than 50kb. Thank you for your code, and in particular, thank you for releasing it under such a permissive license (I'll be honest, I've never come across the "DO WHAT THE FUCK YOU WANT TO PUBIC LICENSE" before! https://github.com/pieroxy/lz-string/blob/master/LICENSE.txt). The script can be found here: https://github.com/pieroxy/lz-string
+ - Joseph G, the person behind the perlin noise script I am using for biome generation. Seriously, your code was a lifesaver. I spent over ten hours trying to find a way to make biome generation work smoothly, but your code managed to help me do this in under half an hour. Thank you. <3. The script can be found here: https://github.com/josephg/noisejs
+ - Bryce Neal, the author of easystar.js, the script that I am using for pathfinding. Thank you for your code, it has helped massively. https://github.com/prettymuchbryce/easystarjs
+
+
+For any projects whose licenses require that a copy of the license is distributed alongside the project, the license can be found in the 'licenses' folder.
