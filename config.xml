@@ -6,14 +6,12 @@
 
   <name>Turtle Mania</name>
 
-  <description>
-      Turtle Mania
-  </description>
+  <description>Turtle Mania</description>
   
   <icon src="images/app.png" />
 
-  <author href="https://olivercjcox.uk" email="contact@olivercjcox.uk">
-      Oliver Cox
-  </author>
+  <author href="https://olivercjcox.uk" email="contact@olivercjcox.uk">Oliver Cox</author>
+    
+  <preference name="windows-identity-name" value="13746OliverCox.TurtleMania" />
 
 </widget>
