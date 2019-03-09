@@ -13,5 +13,8 @@
   <author href="https://olivercjcox.uk" email="contact@olivercjcox.uk">Oliver Cox</author>
     
   <preference name="windows-identity-name" value="13746OliverCox.TurtleMania" />
+    
+  <preference name="phonegap-version" value="cli-6.1.0" />
+  <preference name="windows-appx-target" value="uap" />
 
 </widget>
