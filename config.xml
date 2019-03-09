@@ -9,6 +9,8 @@
   <description>
       Turtle Mania
   </description>
+  
+  <icon src="images/app.png" />
 
   <author href="https://olivercjcox.uk" email="contact@olivercjcox.uk">
       Oliver Cox
