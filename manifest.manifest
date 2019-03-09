@@ -1,0 +1,86 @@
+CACHE MANIFEST
+# Manifest for Turtle Mania.
+# Manifest version 181
+
+
+
+# i18n
+i18n/en-GB.js
+i18n/en-US.js
+
+# images
+images/logo.ico
+images/logo.png
+images/app.png
+images/spritesheet.png
+images/flags/en-GB.png
+images/flags/en-US.png
+
+# mods
+mods/core.js
+
+# javascript
+scripts/defs/achievements.js
+scripts/defs/animation.js
+scripts/defs/items.js
+scripts/defs/planets.js
+scripts/defs/recipes.js
+scripts/lib/base64.min.js
+scripts/lib/jquery-3.2.1.min.js
+scripts/lib/jquery-ui.min.js
+scripts/lib/pathfinding.min.js
+scripts/lib/perlin.js
+scripts/lib/random.js
+scripts/lib/lz-string.min.js
+scripts/lib/ion.sound.js
+scripts/canvasInit.js
+scripts/data.js
+scripts/findmods.js
+scripts/funcs.js
+scripts/help.js
+scripts/inventory.js
+scripts/lang.js
+scripts/map.js
+scripts/modloader.js
+scripts/planets.js
+scripts/player.js
+scripts/stats.js
+scripts/time.js
+scripts/init.js
+
+# css
+style/jquery-ui.min.css
+style/main.css
+style/menus.css
+style/misc.css
+style/selectors.css
+
+# sounds
+sounds/wood.mp3
+sounds/wood.ogg
+sounds/wood.aac
+sounds/stone.mp3
+sounds/stone.ogg
+sounds/stone.aac
+sounds/ice.mp3
+sounds/ice.ogg
+sounds/ice.aac
+
+# fontawesome
+fontawesome/css/font-awesome.min.css
+fontawesome/fonts/fontawesome-webfont.eot
+fontawesome/fonts/fontawesome-webfont.svg
+fontawesome/fonts/fontawesome-webfont.ttf
+fontawesome/fonts/fontawesome-webfont.woff
+fontawesome/fonts/fontawesome-webfont.woff2
+fontawesome/fonts/FontAwesome.otf
+fontawesome/fonts/fontawesome-webfont.eot?v=4.7.0
+fontawesome/fonts/fontawesome-webfont.svg?v=4.7.0
+fontawesome/fonts/fontawesome-webfont.ttf?v=4.7.0
+fontawesome/fonts/fontawesome-webfont.woff?v=4.7.0
+fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0
+fontawesome/fonts/FontAwesome.otf?v=4.7.0
+
+
+NETWORK:
+https://browser.sentry-cdn.com/4.6.4/bundle.min.js

@@ -1,0 +1,18 @@
+/* Text and stuff */
+.title {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+.recipe_count {
+  font-family: 'Arial', sans-serif;
+}
+.fa-check {
+  pointer-events: none !important;
+}
+
+
+.selector_preview {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}

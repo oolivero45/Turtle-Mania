@@ -1,0 +1,9 @@
+Options -Indexes
+
+# Begin Force SSL
+RewriteEngine On
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+# End Force SSL
+
+ErrorDocument 404 "<h1>Error 404: Not Found</h1><br>The resource you requested could not be found."

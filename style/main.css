@@ -1,0 +1,197 @@
+/* Main Canvas */
+* {
+  user-select: none;
+}
+#gridContainer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+#menuContainer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+#menuContainer:not(.menuContainer_mobile) {
+  z-index: 100 !important;
+}
+#notice {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 256px;
+  height: 64px;
+  background-color: #cccccc;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  display: none;
+  text-align: left;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+}
+#achievementImage {
+  width: 32px;
+  height: 32px;
+  margin-top: 16px;
+  margin-right: 4px;
+  background-image: url('../images/spritesheet.png');
+  display: block;
+  margin-left: 4px;
+  float: right;
+}
+#hudtop {
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  text-align: center;
+  position: fixed;
+  width: 100vw;
+  top: 0px;
+  left: 0px;
+  z-index: 550 !important;
+  
+}
+
+/* Mobile Buttons */
+.mobButton {
+  width: 10vmin;
+  height: 10vmin;
+  border-color: #000000;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  color: #000000;
+  text-align: center;
+  z-index: 500 !important;
+  opacity: 0.5;
+}
+
+/* Player layer */
+.player {
+  background-image: url('../images/spritesheet.png');
+  background-position: -160px -128px;
+  pointer-events: none;
+}
+
+/* Health Bar */
+.healthlabel {
+  position: fixed;
+  width: 200px;
+  height: 12px;
+  bottom: 40px;
+  margin-left: -120px;
+  left: 50%;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+}
+.healthbar {
+  position: fixed;
+  width: 200px;
+  height: 12px;
+  bottom: 40px;
+  margin-left: -100px;
+  left: 50%;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+}
+.health {
+  position: absolute;
+  top: 0px;
+  padding-top: 4px;
+  padding-left: 0px;
+  left: 0px;
+  display: block;
+  height: 8px;
+  background-color: #ff0000;
+}
+
+/* Oxygen Bar */
+.oxygenbar {
+  position: fixed;
+  width: 200px;
+  height: 12px;
+  bottom: 60px;
+  margin-left: -100px;
+  left: 50%;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000
+}
+.oxygen {
+  position: absolute;
+  top: 0px;
+  padding-top: 4px;
+  padding-left: 0px;
+  left: 0px;
+  display: block;
+  height: 8px;
+  background-color: #75e1ff;
+}
+
+/* Temperature Bar */
+.temperaturebar {
+  position: fixed;
+  width: 200px;
+  height: 12px;
+  bottom: 80px;
+  margin-left: -100px;
+  left: 50%;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000
+}
+.temperaturehigh {
+  position: absolute;
+  top: 0px;
+  padding-top: 4px;
+  padding-left: 0px;
+  left: 0px;
+  display: block;
+  height: 8px;
+  background-color: #ec8000;
+}
+.temperaturelow {
+  position: absolute;
+  top: 0px;
+  padding-top: 4px;
+  padding-left: 0px;
+  left: 0px;
+  display: block;
+  height: 8px;
+  background-color: #0099ff;
+}
+
+/* Toolbar */
+.toolbar {
+  position: fixed;
+  width: 360px;
+  height: 36px;
+  margin-left: -180px;
+  bottom: 0px;
+  left: 50%;
+}
+.toolbar_slot {
+  background-color: #cccccc;
+  display: table-cell;
+  vertical-align: bottom;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  width: 32px;
+  height: 32px;
+  text-align: right;
+  font-family: 'Arial', sans-serif;
+}
+.toolbar_active {
+  border-color: #0064ff;
+  z-index: 11;
+}

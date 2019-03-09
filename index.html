@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html manifest="manifest.manifest">
+<!--
+ _______         _   _            __  __             _       
+|__   __|       | | | |          |  \/  |           (_)      
+   | |_   _ _ __| |_| | ___      | \  / | __ _ _ __  _  __ _ 
+   | | | | | '__| __| |/ _ \     | |\/| |/ _` | '_ \| |/ _` |
+   | | |_| | |  | |_| |  __/     | |  | | (_| | | | | | (_| |
+   |_|\__,_|_|   \__|_|\___|     |_|  |_|\__,_|_| |_|_|\__,_|
+                                                             
+
+Developed by Oliver Cox. https://olivercjcox.uk
+Artwork by SOOP.
+
+This would have never been possible without the use of multiple open-source libraries.
+I am extremely grateful to the authors of these libraries for publishing them.
+For more information, take a look at the bottom of the help menu. (Press 'H' on a PC, or the '?' button on mobile)
+-->
+<head>
+
+<!-- Character encoding -->
+<meta charset="utf-8" />
+
+<!-- iOS Webapp stuff -->
+<link rel="apple-touch-icon" href="images/app.png">
+<link rel="apple-touch-startup-image" href="app/logo.png">
+<meta name="apple-mobile-web-app-title" content="Turtle Mania">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Turtle Mania</title>
+<!-- End iOS Webapp stuff -->
+
+<!-- Because we get loads of errors if this isn't present during cache reloading -->
+<script>
+var planetKeys = {};
+</script>
+
+<!-- Error Tracking -->
+<script src="https://browser.sentry-cdn.com/4.6.4/bundle.min.js" crossorigin="anonymous"></script>
+<script>Sentry.init({ dsn: 'https://c5240629f2254231a5a619dcbbdc8b60@sentry.io/1405487' });</script>
+
+<!-- Favicon -->
+<link rel="icon" href="images/logo.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="images/logo.ico" type="image/x-icon"/>
+<!-- End Favicon -->
+
+<link rel="stylesheet" type="text/css" href="fontawesome/css/font-awesome.min.css" /> <!-- Font Awesome -->
+
+<!-- All the scripts! -->
+<div id="start_scripts">
+  <script src="scripts/data.js"></script> <!-- General game data -->
+
+  <!-- Libraries -->
+  <script src="scripts/lib/perlin.js"></script> <!-- Perlin noise -->
+  <script src="scripts/lib/pathfinding.min.js"></script> <!-- A* Pathfinding -->
+  <script src="scripts/lib/jquery-3.2.1.min.js"></script> <!-- jQuery -->
+  <script src="scripts/lib/jquery-ui.min.js"></script> <!-- jQuery UI -->
+  <script src="scripts/lib/random.js"></script> <!-- Functiosn for pseudorandom map generation -->
+  <script src="scripts/lib/base64.min.js"></script> <!-- Base 64 function for encoding map exports -->
+  <script src="scripts/lib/lz-string.min.js"></script>
+  <script src="scripts/lib/ion.sound.js"></script>
+
+  <script src="scripts/stats.js"></script> <!-- Player stats -->
+  <script src="scripts/funcs.js"></script> <!-- General functions for game -->
+
+  <script src="scripts/defs/achievements.js"></script> <!-- Achievements -->
+  <script src="scripts/defs/items.js"></script> <!-- Item definitions -->
+  <script src="scripts/defs/recipes.js"></script> <!-- Recipe definitions -->
+  <script src="scripts/defs/planets.js"></script> <!-- Planet definitions -->
+  <script src="scripts/defs/animation.js"></script> <!-- Animation definitions -->
+
+  <script src="scripts/planets.js"></script> <!-- Functions for planets -->
+  <script src="scripts/lang.js"></script> <!-- i18n functions -->
+
+  <script src="scripts/modloader.js" defer></script> <!-- Mod loader -->
+
+  <!-- Mods -->
+  <div id="MODDIV"></div>
+
+  <script src="scripts/findmods.js" defer></script>
+</div>
+
+<!-- CSS sheets -->
+<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css" /> <!-- jQuery UI -->
+<link rel="stylesheet" type="text/css" href="style/main.css" /> <!-- Main CSS Sheet -->
+<link rel="stylesheet" type="text/css" href="style/selectors.css" /> <!-- CSS Rules for Selectors -->
+<link rel="stylesheet" type="text/css" href="style/menus.css" /> <!-- CSS Rules for Menus -->
+<link rel="stylesheet" type="text/css" href="style/misc.css" /> <!-- Miscellaneous CSS Rules -->
+
+<!-- Old Browser Warning -->
+<!--[if IE]>
+<div id="old-browser-warning" style="text-align: center;">
+<h1>You are using Internet Explorer, which is unable to support many features of modern JavaScript. This means that the game will be extremely likely to not work. Please consider downloading a better browser such as <a href="https://www.google.co.uk/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-GB/firefox/">Mozilla Firefox</a>.</h1>
+</div>
+<script>
+setTimeout(function() {
+  document.getElementById("old-browser-warning").style.display = 'none';
+},5000);
+</script>
+<!-- <![endif]-->
+</head>
+
+<body id="body">
+<center id="hudtop" style="pointer-events: none;">
+<span id="time">08:30</span>
+</center>
+
+<button id="soundStarter" style="width: 100vw; height: 100vh; position: fixed; top: 0px; left: 0px; overflow: hidden; opacity: 0; z-index: 99999; border: none;" onclick="ion.sound({sounds: modSounds, volume: 0.5, path: 'sounds/', preload: true, multiplay: true}); $('#soundStarter').remove();"></button>
+
+<div id="loadingScreen" style="width: 100vw; height: 100vh; position: fixed; top: 0px; left: 0px; overflow: hidden; background-color: #222222; z-index: 9997;">
+  <div id="loadingTitle" style="width: 40vmin; height: 20vmin; position: absolute; top: calc(50vh - 10vmin); left: calc(50vw - 20vmin); z-index: 9998;">
+    <h1 style="text-align: center; color: #ffffff; z-index: 9999; font-family: 'Arial', sans-serif; width: 100% height: 100%">Turtle Mania</h1>
+  </div>
+  
+  <div id="loadingMessageBox" style="width: 40vmin; height: 20vmin; position: absolute; top: calc(70vh - 10vmin); left: calc(50vw - 20vmin); z-index: 9998; background-color: #cccccc; display: inline-block; line-height: 10vmin;">
+    <h2 id="loadingText" style="text-align: center; color: #000000; z-index: 9999; font-family: 'Arial', sans-serif;">Loading...</h2>
+  </div>
+  
+  <div id="loadingLogo" style="width: 20min; height: 20vmin; position: absolute; top: calc(25vh - 10vmin); left: calc(50vw - 10vmin); z-index: 9998;">
+    <img src="images/logo.png" style="width: 20vmin; height: 20vmin;" />
+  </div>
+</div>
+
+<!-- Game Elements -->
+<canvas id="gridContainer" oncontextmenu="return false;"></canvas> <!-- Main Game Canvas -->
+<div id="menuContainer" class=""></div> <!-- Used when displaying menus such as crafting and help -->
+<div id="mobileButtons" style="display: none;"> <!-- Mobile Controls -->
+  <button id="mobileUp" class="mobButton" onclick="mobileControl('up');" style="position: fixed; bottom: 20vmin; left: 10vmin;" title="Move Up"><i class="fa fa-fw fa-lg fa-chevron-up" aria-label="Move Up"></i></button>
+  <button id="mobileDown" class="mobButton" onclick="mobileControl('down');" style="position: fixed; bottom: 0px; left: 10vmin;" title="Move Down"><i class="fa fa-fw fa-lg fa-chevron-down" aria-label="Move Down"></i></button>
+  <button id="mobileLeft" class="mobButton" onclick="mobileControl('left');" style="position: fixed; bottom: 10vmin; left: 0px;" title="Move Left"><i class="fa fa-fw fa-lg fa-chevron-left" aria-label="Move Left"></i></button>
+  <button id="mobileRight" class="mobButton" onclick="mobileControl('right');" style="position: fixed; bottom: 10vmin; left: 20vmin;" title="Move Right"><i class="fa fa-fw fa-lg fa-chevron-right" aria-label="Move Right"></i></button>
+  
+  <button id="mobileInventory" class="mobButton" onclick="mobileControl('inventory');" style="position: fixed; top: 0px; left: 0px;" title="Inventory"><i class="fa fa-fw fa-lg fa-archive" aria-label="Open Inventory Window"></i></button>
+  <button id="mobileCraft" class="mobButton" onclick="mobileControl('craft');" style="position: fixed; top: 10vmin; left: 0px;" title="Craft"><i class="fa fa-fw fa-lg fa-wrench" aria-label="Open Crafting Window"></i></button>
+  <button id="mobileDrop" class="mobButton" onclick="mobileControl('drop');" style="position: fixed; top: 0px; left: 10vmin;" title="Drop Held Item"><i class="fa fa-fw fa-lg fa-caret-square-o-down" aria-label="Drop Held Item"></i></button>
+  <button id="mobileToolbar" class="mobButton" onclick="mobileControl('toolbar');" style="position: fixed; top: 10vmin; left: 10vmin;" title="Cycle Toolbar"><i class="fa fa-fw fa-lg fa-repeat" aria-label="Cycle Toolbar Slot"></i></button>
+  <button id="mobileHelp" class="mobButton" onclick="mobileControl('help');" style="position: fixed; top: 0px; left: 20vmin;" title="Help"><i class="fa fa-fw fa-lg fa-question-circle" aria-label="Open Help Window"></i></button>
+  <button id="mobileSave" class="mobButton" onclick="mobileControl('save');" style="position: fixed; top: 10vmin; left: 20vmin;" title="Save/Load"><i class="fa fa-fw fa-lg fa-floppy-o" aria-label="Open Save And Load Window"></i></button>
+  <button id="mobileSkin" class="mobButton" onclick="mobileControl('skin');" style="position: fixed; top: 0px; left: 30vmin;" title="Skin Selection"><i class="fa fa-fw fa-lg fa-paint-brush" aria-label="Open Skin Selection Window"></i></button>
+  <button id="mobileClickMode" class="mobButton" onclick="mobileControl('mode');" style="position: fixed; top: 10vmin; left: 30vmin;" title="Toggle Left/Right Click"><i class="fa fa-fw fa-lg fa-hand-paper-o" aria-label="Toggle Between Left And Rick Click Mode"></i></button>
+</div>
+<center id="toolbar" class="toolbar"></center> <!-- Used to contain the toolbar -->
+<div id="healthbar" class="healthbar"> <!-- Health bar -->
+<span id="health" class="health"></span>
+</div>
+<div id="oxygenbar" class="oxygenbar"> <!-- Oxygen bar -->
+<span id="oxygen" class="oxygen"></span>
+</div>
+<div id="temperaturebar" class="temperaturebar"> <!-- Temperature bar -->
+<span id="temperature" class="temperaturehigh"></span>
+</div>
+<div class="notice" id="notice"></div>
+
+<!-- Even more scripts! -->
+<div id="end_scripts">
+  <script src="scripts/player.js" defer></script> <!-- Player-related stuff -->
+  <script src="scripts/canvasInit.js" defer></script> <!-- Canvas Initialisation -->
+  <script src="scripts/inventory.js" defer></script> <!-- Inventory Functions (including crafting) -->
+  <script src="scripts/help.js" defer></script> <!-- Help Menu Functions -->
+  <script src="scripts/map.js" defer></script> <!-- Main Map Functions -->
+  <script src="scripts/time.js" defer></script> <!-- Time and stuff -->
+  <script src="scripts/init.js" defer></script> <!-- Initialisation -->
+</div>
+
+<!-- Application Cache Updating -->
+<script>
+window.applicationCache.addEventListener('downloading', function(e) {
+  document.getElementById("loadingText").innerHTML = "Updating...";
+  if (typeof loadLoop !== "undefined") {
+    clearInterval(loadLoop);
+  }
+  if (typeof loadLoop2 !== "undefined") {
+    clearInterval(loadLoop2);
+  }
+});
+window.applicationCache.addEventListener('updateready', function(e) {
+  document.getElementById("loadingText").innerHTML = "Applying...";
+  setTimeout(function() {
+    location.reload(true);
+  }, 500);
+});
+</script>
+
+<!-- Prevent selection so that mobile browsers don't break -->
+<script>
+$.fn.extend({ 
+  disableSelection : function() { 
+    this.each(function() { 
+      this.onselectstart = function() { return false; }; 
+      this.unselectable = "on"; 
+      $(this).css('-moz-user-select', 'none'); 
+      $(this).css('-webkit-user-select', 'none'); 
+    }); 
+  } 
+});
+</script>
+
+</body>
+</html>

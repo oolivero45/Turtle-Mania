@@ -1,0 +1,26 @@
+HOW TO ADD A MOD - BEGINNERS:
+(if you know how JavaScript works, you can skip to the step at the bottom of the page)
+1) Find the name of the mod. This will be the name of its file in the 'mods' folder, without the '.js'.
+   For example, the core mod has the file name 'core.js', and its name is 'core'.
+2) Open the folder called 'scripts'.
+3) In the 'scripts' folder, open the file called 'findmods.js'.
+4) Towards the top of the file, you should see a line that says 'var MODS = [',
+   followed by one or more lines with text in quotation marks. (for example, '"core",')
+
+   --------------------------------------
+   WARNING: Be very careful with the next few steps. The file you are editing is part of the game's code.
+   If you edit the wrong part of this file, you will break the game.
+   There are comments in the file that will tell you what parts not to touch.
+   --------------------------------------
+   
+5) Go to the last of these lines, and create a new line below it.
+   Directly below your new line, there should be the line that says '];'.
+   If there isn't, your line is in the wrong place: Re-read the instructions and try again.
+6) On your new line, write the name of the mod in quotation marks, followed by a comma.
+   For example, to load the core mod, you would write:
+   "core",
+7) Save and exit the file. Your mod should now be loaded!
+
+HOW TO ADD A MOD - EXPERIENCED USERS:
+  If you know how JavaScript works, and you don't want to have to follow the simplified instructions above,
+  simply open the file 'scripts/findmods.js', look for the array called 'MODS', and add the name of the mod to the end of the array.
