@@ -8,7 +8,7 @@
 
   <description>Turtle Mania</description>
   
-  <icon src="icon.png" width="2048" height="2048" />
+  <icon src="www/icon.png" width="2048" height="2048" />
 
   <author href="https://olivercjcox.uk" email="contact@olivercjcox.uk">Oliver Cox</author>
     
