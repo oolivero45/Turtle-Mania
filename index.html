@@ -35,10 +35,6 @@ For more information, take a look at the bottom of the help menu. (Press 'H' on 
 var planetKeys = {};
 </script>
 
-<!-- Error Tracking -->
-<script src="https://browser.sentry-cdn.com/4.6.4/bundle.min.js" crossorigin="anonymous"></script>
-<script>Sentry.init({ dsn: 'https://c5240629f2254231a5a619dcbbdc8b60@sentry.io/1405487' });</script>
-
 <!-- Favicon -->
 <link rel="icon" href="images/logo.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon"/>
@@ -86,18 +82,6 @@ var planetKeys = {};
 <link rel="stylesheet" type="text/css" href="style/selectors.css" /> <!-- CSS Rules for Selectors -->
 <link rel="stylesheet" type="text/css" href="style/menus.css" /> <!-- CSS Rules for Menus -->
 <link rel="stylesheet" type="text/css" href="style/misc.css" /> <!-- Miscellaneous CSS Rules -->
-
-<!-- Old Browser Warning -->
-<!--[if IE]>
-<div id="old-browser-warning" style="text-align: center;">
-<h1>You are using Internet Explorer, which is unable to support many features of modern JavaScript. This means that the game will be extremely likely to not work. Please consider downloading a better browser such as <a href="https://www.google.co.uk/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-GB/firefox/">Mozilla Firefox</a>.</h1>
-</div>
-<script>
-setTimeout(function() {
-  document.getElementById("old-browser-warning").style.display = 'none';
-},5000);
-</script>
-<!-- <![endif]-->
 </head>
 
 <body id="body">
@@ -161,25 +145,6 @@ setTimeout(function() {
   <script src="scripts/time.js" defer></script> <!-- Time and stuff -->
   <script src="scripts/init.js" defer></script> <!-- Initialisation -->
 </div>
-
-<!-- Application Cache Updating -->
-<script>
-window.applicationCache.addEventListener('downloading', function(e) {
-  document.getElementById("loadingText").innerHTML = "Updating...";
-  if (typeof loadLoop !== "undefined") {
-    clearInterval(loadLoop);
-  }
-  if (typeof loadLoop2 !== "undefined") {
-    clearInterval(loadLoop2);
-  }
-});
-window.applicationCache.addEventListener('updateready', function(e) {
-  document.getElementById("loadingText").innerHTML = "Applying...";
-  setTimeout(function() {
-    location.reload(true);
-  }, 500);
-});
-</script>
 
 <!-- Prevent selection so that mobile browsers don't break -->
 <script>
