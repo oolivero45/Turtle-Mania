@@ -15,7 +15,7 @@
   <preference name="windows-identity-name" value="13746OliverCox.TurtleMania" />
   <preference name="WindowsStoreIdentityName" value="13746OliverCox.TurtleMania" />
     
-  <preference name="phonegap-version" value="cli-8.0.0" />
+  <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="windows-appx-target" value="UAP" />
   <preference name="windows-target-version" value="UAP" />
 
