@@ -3,7 +3,7 @@ const canDebug = true;
 
 var mobileMode = null;
 
-var buildNumber = "V1.9.0B-PRE1";
+var buildNumber = "V1.9.0B-PRE5";
 
 var item_positions = {};
 var items = [];
