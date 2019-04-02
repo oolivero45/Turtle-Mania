@@ -1,3 +1,4 @@
+// Player stuff
 var health = 200;
 var oxygen = 800;
 var temperature = 293;
@@ -212,9 +213,9 @@ if (seedTest === false) {
       safeTemp = true;
     } else {
       if (planets[currentPlanet].temperature < safeTemperatureRange[0]) {
-        tempChange = (Math.abs(planets[currentPlanet].temperature - safeTemperatureRange[0]) * -1) / 2;
+        tempChange = Math.ceil(((Math.abs(planets[currentPlanet].temperature - safeTemperatureRange[0]) * -1) / 2) / 10);
       } else if (planets[currentPlanet].temperature > safeTemperatureRange[1]) {
-        tempChange = (Math.abs(planets[currentPlanet].temperature - safeTemperatureRange[1])) / 2;
+        tempChange = Math.ceil((Math.abs(planets[currentPlanet].temperature - safeTemperatureRange[1])) / 10);
       }
     }
     if (breathable === true) {

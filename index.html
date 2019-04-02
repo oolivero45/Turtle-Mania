@@ -21,8 +21,44 @@ For more information, take a look at the bottom of the help menu. (Press 'H' on 
 <!-- Character encoding -->
 <meta charset="utf-8" />
 
-<script src="https://browser.sentry-cdn.com/4.6.4/bundle.min.js" crossorigin="anonymous"></script>
-<script>Sentry.init({ dsn: 'https://c5240629f2254231a5a619dcbbdc8b60@sentry.io/1405487' });</script>
+<!-- jQuery is loaded first as it is required for the update checker. -->
+<script src="scripts/lib/jquery-3.2.1.min.js"></script>
+
+<!-- Cache Stuff -->
+<script>
+var appCache = window.applicationCache;
+
+function noCacheUpdate() {
+  console.log("No update required. Starting game.");
+  $("#loadingText").text("Launching...");
+  setTimeout(function() {
+    $("#loadingScreen").fadeOut(1000);
+  }, 1000);
+  setTimeout(function() {
+    $("#loadingScreen").remove();
+  }, 2000);
+}
+function cacheUpdating() {
+  console.log("Downloading update.");
+  $("#loadingText").text("Updating...");
+}
+function cacheUpdated() {
+  console.log("Restarting to apply update.");
+  appCache.swapCache();
+  $("#loadingText").text("Restarting...");
+  window.location.reload();
+}
+function cacheCached() {
+  console.log("Restarting to apply update.");
+  $("#loadingText").text("Restarting...");
+  window.location.reload();
+}
+
+appCache.onnoupdate = function(e) { noCacheUpdate(); };
+appCache.ondownloading = function(e) { cacheUpdating(); };
+appCache.onupdateready = function(e) { cacheUpdated(); };
+appCache.oncached = function(e) { cacheCached(); };
+</script>
 
 <!-- iOS Webapp stuff -->
 <link rel="apple-touch-icon" href="images/app.png">
@@ -52,7 +88,6 @@ var planetKeys = {};
   <!-- Libraries -->
   <script src="scripts/lib/perlin.js"></script> <!-- Perlin noise -->
   <script src="scripts/lib/pathfinding.min.js"></script> <!-- A* Pathfinding -->
-  <script src="scripts/lib/jquery-3.2.1.min.js"></script> <!-- jQuery -->
   <script src="scripts/lib/jquery-ui.min.js"></script> <!-- jQuery UI -->
   <script src="scripts/lib/random.js"></script> <!-- Functiosn for pseudorandom map generation -->
   <script src="scripts/lib/base64.min.js"></script> <!-- Base 64 function for encoding map exports -->

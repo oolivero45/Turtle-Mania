@@ -76,10 +76,14 @@ var drawTile = function(x, y) {
   }
 }
 
-var debugDrawTile = function(x, y) {
+var debugDrawTile = function(x, y, text = false) {
   ctx.clearRect((x*32), (y*32), (32), (32));
   ctx.fillStyle = 'rgba(255, 0, 0, 1)';
   ctx.fillRect((x*32), (y*32), 32, 32);
+  if (text !== false) {
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+    ctx.fillText(text, (x*32), ((y+1)*32));
+  }
 }
 
 var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", useTime = false) {
@@ -229,10 +233,12 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
       var passDifficulty = 0;
       if (tile.passable === false) {
         passDifficulty = -1;
-      } else if (tile.feature === "" || tile.feature === "flowers-1" || tile.feature === "flowers-2") {
+      } else if (tile.feature === "") {
+        passDifficulty = 0;
+      } else if (tile.feature === "flowers-1" || tile.feature === "flowers-2") {
         passDifficulty = 1;
       } else {
-        passDifficulty = 0;
+        passDifficulty = 2;
       }
       onScreenTile2.passDifficulty = passDifficulty;
 
@@ -320,12 +326,6 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
   stats["biome_visited." + tiles[currentPlanet][playerpos].biome] = stats["biome_visited." + tiles[currentPlanet][playerpos].biome] + 1;
   if (firstDraw === true) {
     firstDraw = false;
-    setTimeout(function() {
-      $("#loadingScreen").fadeOut(1000);
-    }, 1000);
-    setTimeout(function() {
-      $("#loadingScreen").remove();
-    }, 2000);
   }
 }
 
@@ -1223,25 +1223,34 @@ var pathDrawTest = function(path) {
   pathArray = Object.keys(path);
   for (var i = 0; i < pathArray.length; i++) {
     moveTo = path[pathArray[i]];
-    debugDrawTile(moveTo.x, moveTo.y);
+    debugDrawTile(moveTo.x, moveTo.y, i.toString());
   }
 }
 
-var pathTest = function() {
+var pathTest = function(noFeaturePass = false) {
   var grid = [];
   var allTiles = Object.keys(tiles[currentPlanet]).sort;
   for (var i = 0; i < windowy; i++) {
     var gridRow = [];
     for (var j = 0; j < windowx; j++) {
-      gridRow.push(onScreen2[onScreen[j + 'x' + k].x + 'x' + onScreen[j + 'x' + k].y].passDifficulty);
+      gridRow.push(onScreen2[onScreen[j + 'x' + i].x + 'x' + onScreen[j + 'x' + i].y].passDifficulty);
     }
     grid.push(gridRow);
   }
   var easystar = new EasyStar.js();
   easystar.setGrid(grid);
-  easystar.setAcceptableTiles([0, 1]);
-  easystar.setTileCost(0, 0);
-  easystar.setTileCost(1, 1);
+  if (noFeaturePass === true) {
+    easystar.setAcceptableTiles([0]);
+    easystar.setTileCost(0, 1); // nothing
+  } else {
+    easystar.setAcceptableTiles([0, 1, 2]);
+    easystar.setTileCost(0, 1); // nothing
+    easystar.setTileCost(1, 1); // non-blocking features e.g. flowers
+    easystar.setTileCost(2, 2); // all other features
+  }
+  if (debug === true) {
+    console.log(grid);
+  }
   var destination = onScreen2[playerpos.split('x')[0] + 'x' + playerpos.split('x')[1]];
   easystar.findPath(0, 0, destination.x, destination.y, function( path ) {
     if (path === null) {
