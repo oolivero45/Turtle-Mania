@@ -319,13 +319,13 @@ var modRecipes = {
 };
 
 var modCraftingStations = {
-  "station_furnace" : ["category.bars","category.alloys"],
-  "station_press" : ["category.plates"],
-  "station_rollingmachine" : ["category.rods"],
-  "station_rocketstation" : ["category.rocket"],
-  "station_electrolyser" : ["category.electrolyser"],
-  "station_reactionchamber" : ["category.reactionchamber"],
-  "station_airfilter" : ["category.airfilter"],
+  "station_furnace" : {"categories": ["category.bars","category.alloys"], "sound": null},
+  "station_press" : {"categories": ["category.plates"], "sound": "metal_press"},
+  "station_rollingmachine" : {"categories": ["category.rods"], "sound": "metal_machine"},
+  "station_rocketstation" : {"categories": ["category.rocket"], "sound": null},
+  "station_electrolyser" : {"categories": ["category.electrolyser"], "sound": null},
+  "station_reactionchamber" : {"categories": ["category.reactionchamber"], "sound": null},
+  "station_airfilter" : {"categories": ["category.airfilter"], "sound": "air"},
 };
 
 var modPlaceable = {
@@ -408,6 +408,15 @@ var modSounds = [
   },
   {
     "name": "ice",
+  },
+  {
+    "name": "metal_machine",
+  },
+  {
+    "name": "metal_press",
+  },
+  {
+    "name": "air",
   },
 ];
 

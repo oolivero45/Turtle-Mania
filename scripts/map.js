@@ -1171,7 +1171,10 @@ img.onload = function() {
                 rocketTile = x + "x" + y;
                 planetWindow();
               } else if (craftingStations[tiles[currentPlanet][x + "x" + y].feature] !== undefined) {
-                craftWindow(craftingStations[tiles[currentPlanet][x + "x" + y].feature]);
+                if (craftingStations[tiles[currentPlanet][x + "x" + y].feature].sound !== null) {
+                  playSound(craftingStations[tiles[currentPlanet][x + "x" + y].feature].sound);
+                }
+                craftWindow(craftingStations[tiles[currentPlanet][x + "x" + y].feature].categories);
               } else {
                 if (canPlace !== undefined) {
                   var featureid = canPlace;

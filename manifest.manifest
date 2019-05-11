@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Manifest for Turtle Mania.
-# Manifest version 252
+# Manifest version 254
 
 
 
@@ -65,6 +65,15 @@ sounds/stone.aac
 sounds/ice.mp3
 sounds/ice.ogg
 sounds/ice.aac
+sounds/metal_machine.mp3
+sounds/metal_machine.ogg
+sounds/metal_machine.aac
+sounds/metal_press.mp3
+sounds/metal_press.ogg
+sounds/metal_press.aac
+sounds/air.mp3
+sounds/air.ogg
+sounds/air.aac
 
 # fontawesome
 fontawesome/css/font-awesome.min.css

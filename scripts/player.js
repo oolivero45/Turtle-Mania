@@ -118,6 +118,7 @@ var updateOxygen = function(amount = 0) {
   oxygen += amount;
   if (oxygen <= 0) {
     if (inventoryGet("item.tank.gas.oxygen") > 0) {
+      playSound("air");
       inventoryRemove("item.tank.gas.oxygen",1);
       oxygen = 800;
     } else {
