@@ -74,7 +74,7 @@ var drawTile = function(x, y) {
     ctx.fillStyle = 'rgba(0, 0, 0, ' + timefill + ')';
     ctx.fillRect((x*32), (y*32), spriteSize, spriteSize);
   }
-}
+};
 
 var debugDrawTile = function(x, y, text = false) {
   ctx.clearRect((x*32), (y*32), (32), (32));
@@ -84,13 +84,13 @@ var debugDrawTile = function(x, y, text = false) {
     ctx.fillStyle = 'rgba(255, 255, 255, 1)';
     ctx.fillText(text, (x*32), ((y+1)*32));
   }
-}
+};
 
 var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", useTime = false) {
   animatedTiles = [];
   var allLightSources = null;
   if (firstDraw === false) {
-    var allLightSources = checkForLightSources();
+    allLightSources = checkForLightSources();
   }
   var startime = 0;
   var endtime = 0;
@@ -98,7 +98,7 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
     startime = new Date().getTime();
   }
   onscreen = {};
-  onScreen2 = {}
+  onScreen2 = {};
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var toolbar = document.getElementById("toolbar");
   while (toolbar.hasChildNodes()) {
