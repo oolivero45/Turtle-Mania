@@ -74,7 +74,7 @@ var drawTile = function(x, y) {
     ctx.fillStyle = 'rgba(0, 0, 0, ' + timefill + ')';
     ctx.fillRect((x*32), (y*32), spriteSize, spriteSize);
   }
-}
+};
 
 var debugDrawTile = function(x, y, text = false) {
   ctx.clearRect((x*32), (y*32), (32), (32));
@@ -84,13 +84,13 @@ var debugDrawTile = function(x, y, text = false) {
     ctx.fillStyle = 'rgba(255, 255, 255, 1)';
     ctx.fillText(text, (x*32), ((y+1)*32));
   }
-}
+};
 
 var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", useTime = false) {
   animatedTiles = [];
   var allLightSources = null;
   if (firstDraw === false) {
-    var allLightSources = checkForLightSources();
+    allLightSources = checkForLightSources();
   }
   var startime = 0;
   var endtime = 0;
@@ -98,7 +98,7 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
     startime = new Date().getTime();
   }
   onscreen = {};
-  onScreen2 = {}
+  onScreen2 = {};
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var toolbar = document.getElementById("toolbar");
   while (toolbar.hasChildNodes()) {
@@ -129,12 +129,12 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
       } else {
         tileModY = -10;
       }
-      var biomeid = Math.floor(pseudorandomTerrain(k + 'x' + i, seed) * Object.size(planets[currentPlanet]["biomes"]));
-      var texvarcount = planets[currentPlanet]["biomes"][biomeid][0].length;
-      var randpair = planets[currentPlanet]["biomes"][biomeid][0][Math.floor(pseudorandom(k + 'x' + i) * texvarcount)];
+      var biomeid = Math.floor(pseudorandomTerrain(k + 'x' + i, seed) * Object.size(planets[currentPlanet].biomes));
+      var texvarcount = planets[currentPlanet].biomes[biomeid][0].length;
+      var randpair = planets[currentPlanet].biomes[biomeid][0][Math.floor(pseudorandom(k + 'x' + i) * texvarcount)];
       var randx = randpair[0];
       var randy = randpair[1];
-      var biome = planets[currentPlanet]["biomes"][biomeid][1];
+      var biome = planets[currentPlanet].biomes[biomeid][1];
       var positions = getTexture(randx,randy);
       var x = positions[0];
       var y = positions[1];
@@ -201,22 +201,22 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
             }
           } else {
             tile.rotation = (Math.floor(pseudorandom(tile.id, seed) * 4) * 90) * Math.PI / 180;
-            var featureRandom = Math.floor(pseudorandom(tile.id, seed) * (Object.size(planets[currentPlanet]["features"]) + 10));
-            if (featureRandom < Object.size(planets[currentPlanet]["features"])) {
-              if (planets[currentPlanet]["features"][featureRandom][4].includes(biome)) {
-                tile.passable = planets[currentPlanet]["features"][featureRandom][0];
-                tile.feature = planets[currentPlanet]["features"][featureRandom][1];
-                tile.featurex = planets[currentPlanet]["features"][featureRandom][2];
-                tile.featurey = planets[currentPlanet]["features"][featureRandom][3];
-                if (planets[currentPlanet]["features"][featureRandom][5] !== undefined) {
-                  tile.resource = planets[currentPlanet]["features"][featureRandom][5];
-                  tile.remaining = planets[currentPlanet]["features"][featureRandom][6];
+            var featureRandom = Math.floor(pseudorandom(tile.id, seed) * (Object.size(planets[currentPlanet].features) + 10));
+            if (featureRandom < Object.size(planets[currentPlanet].features)) {
+              if (planets[currentPlanet].features[featureRandom][4].includes(biome)) {
+                tile.passable = planets[currentPlanet].features[featureRandom][0];
+                tile.feature = planets[currentPlanet].features[featureRandom][1];
+                tile.featurex = planets[currentPlanet].features[featureRandom][2];
+                tile.featurey = planets[currentPlanet].features[featureRandom][3];
+                if (planets[currentPlanet].features[featureRandom][5] !== undefined) {
+                  tile.resource = planets[currentPlanet].features[featureRandom][5];
+                  tile.remaining = planets[currentPlanet].features[featureRandom][6];
                 }
-                if (planets[currentPlanet]["features"][featureRandom][7] !== "none") {
-                  tile.hit_sound = planets[currentPlanet]["features"][featureRandom][7];
+                if (planets[currentPlanet].features[featureRandom][7] !== "none") {
+                  tile.hit_sound = planets[currentPlanet].features[featureRandom][7];
                 }
-                if (Object.keys(animations).includes(planets[currentPlanet]["features"][featureRandom][1])) {
-                  tile.animation = animations[planets[currentPlanet]["features"][featureRandom][1]];
+                if (Object.keys(animations).includes(planets[currentPlanet].features[featureRandom][1])) {
+                  tile.animation = animations[planets[currentPlanet].features[featureRandom][1]];
                 }
                 feature = true;
               }
@@ -266,8 +266,8 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
       if (seedTest === false) {
         ctx.drawImage(img, tile.texposx, tile.texposy, 32, 32, tile.posx, tile.posy, 32, 32);
       } else {
-        var colour = hexToRgb(planets[currentPlanet]["biomeColours"][biome]);
-        ctx.fillStyle = "rgba(" + colour["r"] + "," + colour["g"] + "," + colour["b"] + ",255)";
+        var colour = hexToRgb(planets[currentPlanet].biomeColours[biome]);
+        ctx.fillStyle = "rgba(" + colour.r + "," + colour.g + "," + colour.b + ",255)";
         ctx.fillRect(tile.posx, tile.posy, spriteSize, spriteSize);
       }
       if (tile.feature !== "") {
@@ -327,7 +327,7 @@ var drawMap = function(maxx, maxy, startx, starty, timed = false, label = "", us
   if (firstDraw === true) {
     firstDraw = false;
   }
-}
+};
 
 var drawToolbar = function() {
   var toolbar = document.getElementById("toolbar");
@@ -352,7 +352,7 @@ var drawToolbar = function() {
     }
     document.getElementById("toolbar").appendChild(elem);
   }
-}
+};
 
 var drawInventory = function() {
   var menuInventory = document.getElementById("menu_inventory");
@@ -420,17 +420,17 @@ var drawInventory = function() {
       });
     }
   }
-}
+};
 
 var teleport = function(playerx, playery) {
   playerpos = playerx + 'x' + playery;
   drawMap(windowx, windowy, (playerx - Math.floor(windowx/2)), (playery - Math.floor(windowy/2)), true, "Teleported");
   return true;
-}
+};
 
 var locate = function() {
   return playerpos;
-}
+};
 
 /*
 Remove all saved tiles, reset player location, and redraw map.
@@ -449,14 +449,14 @@ var forceRegen = function () {
   placePlayer();
   drawMap(windowx, windowy, (playerx - Math.floor(windowx/2)), (playery - Math.floor(windowy/2)), true, "Forced map regeneration");
   return true;
-}
+};
 
 // Change the world generation seed, and force the map to be regenerated
 var setSeed = function(newSeed) {
   seed = newSeed;
   forceRegen();
   return true;
-}
+};
 
 /*
 Place the player in their starting position
@@ -464,7 +464,7 @@ The game will loop through every tile from left to right, top to bottom, and che
 If it is passible (not obstructed by anything), the player will be placed on that tile, and the loop will halt.
 */
 var placePlayer = function() {
-  for (key in tiles[currentPlanet]) {
+  for (var key in tiles[currentPlanet]) {
     var stop = false;
     if (!tiles[currentPlanet].hasOwnProperty(key)) continue;
 
@@ -492,7 +492,7 @@ var placePlayer = function() {
       break;
     }
   }
-}
+};
 
 // Game loading from file drop
 function handleFileSelect(evt) {
@@ -508,7 +508,7 @@ function handleFileSelect(evt) {
     // get file content
     var text = e.target.result;
     loadGame(text);
-  }
+  };
   for (var i = 0, f; f = files.item(i); i++) {
     output.push(reader.readAsText(f));
   }
@@ -540,7 +540,7 @@ var saveGame = function() {
   output += JSON.stringify(achievements);
   output = Base64.encode(LZString.compress(output));
   return output;
-}
+};
 
 var getBrowserSaves = function() {
   if (typeof(Storage) !== "undefined") {
@@ -552,13 +552,13 @@ var getBrowserSaves = function() {
   } else {
     alert("LocalStorage is not supported by your browser!");
   }
-}
+};
 
 var saveToBrowser = function(save_slot = 0, overwrite = false) {
   if (typeof(Storage) !== "undefined") {
     var data = saveGame();
     if (localStorage.getItem("tm_save_" + save_slot.toString()) !== null && overwrite === false) {
-      console.info("Couldn't save game, as another save file with that name already exists, and the overwrite parameter is not set to true.")
+      console.info("Couldn't save game, as another save file with that name already exists, and the overwrite parameter is not set to true.");
       return false;
     } else if (localStorage.getItem("tm_save_" + save_slot.toString()) !== null && overwrite === true) {
       localStorage.removeItem("tm_save_" + save_slot.toString());
@@ -580,7 +580,7 @@ var saveToBrowser = function(save_slot = 0, overwrite = false) {
     alert("LocalStorage is not supported by your browser!");
     return false;
   }
-}
+};
 
 var sendToPastebin = function(save_data) {
   $.post("https://content-delivery.olivercjcox.uk/turtle-mania-pastebin-saves/save.php", {save_string: save_data}, function(data) {
@@ -598,7 +598,7 @@ var sendToPastebin = function(save_data) {
       });
     }
   }, "json");
-}
+};
 
 var loadFromPastebin = function(pastebin_url) {
   $.get(pastebin_url.replace("https://pastebin.com/","https://content-delivery.olivercjcox.uk/turtle-mania-pastebin-saves/load.php?key="), function(data) {
@@ -607,24 +607,24 @@ var loadFromPastebin = function(pastebin_url) {
       console.warn("Failed to import save from pastebin. Response:");
       console.log(data);
     } else {
-      notice("<b>Save imported successfully</b>")
+      notice("<b>Save imported successfully</b>");
       loadGame(data);
     }
   });
-}
+};
 
 var saveToFile = function() {
   var data = saveGame();
   download("saved_game.sav",data);
   return true;
-}
+};
 
 var closeSaveWindow = function() {
   if (presence === "save") {
     saveWindow();
   }
   return true;
-}
+};
 
 var saveWindow = function() {
   var grid = document.getElementById("menuContainer");
@@ -661,7 +661,7 @@ var saveWindow = function() {
       } else {
         saveWindow();
       }
-    }
+    };
     
     document.getElementById("menu_save").appendChild(savebutton);
     var loadheader = document.createElement("h3");
@@ -681,7 +681,7 @@ var saveWindow = function() {
         var content = "<span style='color: #009900;'>&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-save fa-3x fa-fw' aria-hidden='true' style='display: inline;'></i>&nbsp;&nbsp;&nbsp;&nbsp;<h3 style='font-family: Arial; display: inline;'>Game Loaded Successfully!</h3></span>";
         notice(content);
         saveWindow();
-      }
+      };
       document.getElementById("menu_save").appendChild(loadbutton);
       
       var pastebinsavebutton = document.createElement("button");
@@ -692,7 +692,7 @@ var saveWindow = function() {
       pastebinsavebutton.onclick = function(buttonid = this.id) {
         var save_data = loadFromBrowser(buttonid.target.id.replace("pastebin_save_",""), false);
         sendToPastebin(save_data);
-      }
+      };
       document.getElementById("menu_save").appendChild(pastebinsavebutton);
     }
     
@@ -702,12 +702,12 @@ var saveWindow = function() {
     var playery = parseInt(playerpos.split("x")[1]);
     presence = "game";
   }
-}
+};
 
 var backupSaves = function() {
   var saves = getBrowserSaves();
   
-}
+};
 
 var loadGame = function(data) {
   var data = LZString.decompress(Base64.decode(data));
@@ -727,7 +727,7 @@ var loadGame = function(data) {
   var playery = parseInt(playerpos.split("x")[1]);
   drawMap(windowx, windowy, (playerx - Math.floor(windowx/2)), (playery - Math.floor(windowy/2)));
   return true;
-}
+};
 
 var loadFromBrowser = function(save_slot = 0, auto_load = true) {
   if (typeof(Storage) !== "undefined") {
@@ -746,13 +746,13 @@ var loadFromBrowser = function(save_slot = 0, auto_load = true) {
     alert("LocalStorage is not supported by your browser!");
     return false;
   }
-}
+};
 
 var saveToCookie = function() {
   var data = saveGame();
   setCookie("savedgame",data,365);
   return true;
-}
+};
 
 var loadFromCookie = function() {
   if (getCookie("savedgame") === "") {
@@ -762,7 +762,7 @@ var loadFromCookie = function() {
     loadGame(data);
     return true;
   }
-}
+};
 
 // Movement
 $(document).keydown(function(e) {
@@ -849,9 +849,9 @@ $(document).keydown(function(e) {
       }
       if (debug === false) {
         canMove = false;
-        setTimeout(function() {canMove = true}, Math.floor(moveDelay / moveModifier));
+        setTimeout(function() {canMove = true;}, Math.floor(moveDelay / moveModifier));
       }
-      stats["tiles_moved"] = stats["tiles_moved"] + 1;
+      stats.tiles_moved++;
       playerpos = tile_x + "x" + tile_y;
       var playerx = parseInt(playerpos.split("x")[0]);
       var playery = parseInt(playerpos.split("x")[1]);
@@ -924,13 +924,13 @@ var mobileControl = function(action) {
     render = false;
   }
   if (tiles[currentPlanet][tile_x + 'x' + tile_y].passable === true && render === true) {
-    stats["tiles_moved"] = stats["tiles_moved"] + 1;
+    stats.tiles_moved++;
     playerpos = tile_x + "x" + tile_y;
     var playerx = parseInt(playerpos.split("x")[0]);
     var playery = parseInt(playerpos.split("x")[1]);
     drawMap(windowx, windowy, (playerx - Math.floor(windowx/2)), (playery - Math.floor(windowy/2)));
   }
-}
+};
 
 // Resize detection
 $(window).resize(function() {
@@ -1068,10 +1068,10 @@ img.onload = function() {
                       }
                       var resource = randomOre(biome);
                       inventoryAdd(resource, mineCount);
-                      stats["rocks_harvested"] = stats["rocks_harvested"] + 1;
+                      stats.rocks_harvested++;
                       stats[resource + "_collected"] = stats[resource + "_collected"] + mineCount;
                       if (stats[resource + "_collected"] === 1 && resource.includes("item.ore.")) {
-                        if (stats["rocks_harvested"] === 1) {
+                        if (stats.rocks_harvested === 1) {
                           setTimeout(function() {
                             giveAchievement(resource.replace("item.ore.",""));
                           },5000);
@@ -1081,7 +1081,7 @@ img.onload = function() {
                       }
 
                       if (stats[resource + "_collected"] === 1 && resource.includes("item.gem.")) {
-                        if (stats["rocks_harvested"] === 1) {
+                        if (stats.rocks_harvested === 1) {
                           setTimeout(function() {
                             giveAchievement(resource.replace("item.gem.",""));
                           },5000);
@@ -1091,7 +1091,7 @@ img.onload = function() {
                       }
 
                       if (stats[resource + "_collected"] === 1 && ["item.stone","item.coal"].includes(resource)) {
-                        if (stats["rocks_harvested"] === 1) {
+                        if (stats.rocks_harvested === 1) {
                           setTimeout(function() {
                             giveAchievement(resource.replace("item.",""));
                           },5000);
@@ -1100,7 +1100,7 @@ img.onload = function() {
                         }
                       }
 
-                      if (stats["rocks_harvested"] === 1) {
+                      if (stats.rocks_harvested === 1) {
                         giveAchievement("mine");
                       }
                       if (gemstones.includes(resource)) {
@@ -1123,9 +1123,9 @@ img.onload = function() {
                         giveAchievement("debug");
                       }
                       inventoryAdd(tiles[currentPlanet][id].resource, mineCount);
-                      stats["trees_harvested"] = stats["trees_harvested"] + 1;
+                      stats.trees_harvested++;
                       stats[tiles[currentPlanet][id].resource + "_collected"] = stats[tiles[currentPlanet][id].resource + "_collected"] + mineCount;
-                      if (stats["trees_harvested"] === 1) {
+                      if (stats.trees_harvested === 1) {
                         giveAchievement("timber");
                       }
                     } else {
@@ -1206,7 +1206,7 @@ img.onload = function() {
       }
     }
   }, 100);
-}
+};
 img.src = "./images/spritesheet.png";
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -1217,7 +1217,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 // Autosave every 5 minutes
 var autosaveLoop = setInterval(function() {
-  if (settings["autosave"] === true) {
+  if (settings.autosave === true) {
     saveToBrowser("Autosave", true);
   }
 }, 300000);
@@ -1228,7 +1228,7 @@ var pathDrawTest = function(path) {
     moveTo = path[pathArray[i]];
     debugDrawTile(moveTo.x, moveTo.y, i.toString());
   }
-}
+};
 
 var pathTest = function(noFeaturePass = false) {
   var grid = [];
@@ -1263,4 +1263,4 @@ var pathTest = function(noFeaturePass = false) {
     }
   });
   easystar.calculate();
-}
+};
