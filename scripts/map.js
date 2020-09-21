@@ -999,39 +999,39 @@ img.onload = function() {
               e.which = 3;
             }
           }
-          switch (e.which) {
-            case 1:
-              var x = Math.floor((e.pageX-$("#gridContainer").offset().left) / 32);
-              var y = Math.floor((e.pageY-$("#gridContainer").offset().top) / 32);
-              var id = x + 'x' + y;
-              var x = onScreen[id].x;
-              var y = onScreen[id].y;
-              var id = x + 'x' + y;
-              var tile_id = x + "x" + y;
-              var tile_x = parseInt(tile_id.split("x")[0]);
-              var tile_y = parseInt(tile_id.split("x")[1]);
-              var biome = tiles[currentPlanet][tile_id].biome;
+          switch (e.which) { // check which button
+            case 1: // left
+              var x = Math.floor((e.pageX-$("#gridContainer").offset().left) / 32); // work out which on-screen grid tile was clicked
+              var y = Math.floor((e.pageY-$("#gridContainer").offset().top) / 32); // work out which on-screen grid tile was clicked
+              var id = x + 'x' + y; // do some id stuff
+              var x = onScreen[id].x; // work out which actual tile this is
+              var y = onScreen[id].y; // work out which actual tile this is
+              var id = x + 'x' + y; // more id stuff!
+              var tile_id = x + "x" + y; // wait why did I do this twice?
+              var tile_x = parseInt(tile_id.split("x")[0]); // ??? why didn't I just use x and y?
+              var tile_y = parseInt(tile_id.split("x")[1]); // what was past me thinking?
+              var biome = tiles[currentPlanet][tile_id].biome; // get the biome
               var pass = false;
-              if (debug === true) {
+              if (debug === true) { // output debug info if debug mode is on
                 console.log("(" + tile_x + "," + tile_y + ")");
                 console.log(tiles[currentPlanet][tile_x + "x" + tile_y]);
               }
               // Check if the tile is adjacent to the player
-              if (tiles[currentPlanet][(x) + 'x' + (y+1)].id === playerpos) {
+              if (tiles[currentPlanet][(x) + 'x' + (y+1)].id === playerpos) { // X, Y+1 (south)
                 pass = true;
-              } else if (tiles[currentPlanet][(x) + 'x' + (y-1)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x) + 'x' + (y-1)].id === playerpos) { // X, Y-1 (north)
                 pass = true;
-              } else if (tiles[currentPlanet][(x+1) + 'x' + (y)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x+1) + 'x' + (y)].id === playerpos) { // X+1, Y (east)
                 pass = true;
-              } else if (tiles[currentPlanet][(x-1) + 'x' + (y)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x-1) + 'x' + (y)].id === playerpos) { // X-1, Y (west)
                 pass = true;
-              } else if (tiles[currentPlanet][(x+1) + 'x' + (y+1)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x+1) + 'x' + (y+1)].id === playerpos) { // X+1, Y+1 (south east)
                 pass = true;
-              } else if (tiles[currentPlanet][(x+1) + 'x' + (y-1)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x+1) + 'x' + (y-1)].id === playerpos) { // X+1, Y-1 (north east)
                 pass = true;
-              } else if (tiles[currentPlanet][(x-1) + 'x' + (y+1)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x-1) + 'x' + (y+1)].id === playerpos) { // X-1, Y+1 (south west)
                 pass = true;
-              } else if (tiles[currentPlanet][(x-1) + 'x' + (y-1)].id === playerpos) {
+              } else if (tiles[currentPlanet][(x-1) + 'x' + (y-1)].id === playerpos) { // X-1, Y-1 (south east)
                 pass = true;
               }
               if (pass === true) {
@@ -1041,8 +1041,8 @@ img.onload = function() {
                 if (tiles[currentPlanet][id].resource === "none") {
                   return false;
                 }
-                if (items.includes(tiles[currentPlanet][id].resource) || tiles[currentPlanet][id].resource === "ore") {
-                  if (tiles[currentPlanet][id].remaining === 0) {
+                if (items.includes(tiles[currentPlanet][id].resource) || tiles[currentPlanet][id].resource === "ore") { // If there's something there, or if it's an ore
+                  if (tiles[currentPlanet][id].remaining === 0) { // If there's nothing remaining, remove the feature and redraw
                     tiles[currentPlanet][id].feature = "";
                     tiles[currentPlanet][id].featurex = "";
                     tiles[currentPlanet][id].featurey = "";
@@ -1053,85 +1053,85 @@ img.onload = function() {
                     var playerx = parseInt(playerpos.split("x")[0]);
                     var playery = parseInt(playerpos.split("x")[1]);
                     drawMap(windowx, windowy, (playerx - Math.floor(windowx/2)), (playery - Math.floor(windowy/2)));
-                  } else {
+                  } else { // If there's still something left
                     var remaining = tiles[currentPlanet][id].remaining;
-                    tiles[currentPlanet][id].remaining = (remaining - 1);
-                    if (tiles[currentPlanet][id].resource === "ore") {
-                      var mineCount = 1;
-                      if (pickaxes[heldItem[0]] === undefined) {
-                        mineCount = 1;
-                      } else {
-                        mineCount = pickaxes[heldItem[0]];
+                    tiles[currentPlanet][id].remaining = (remaining - 1); // Remove 1 from the remaining total
+                    if (tiles[currentPlanet][id].resource === "ore") { // If it's an ore
+                      var mineCount = 1; // Default to 1 yield
+                      if (pickaxes[heldItem[0]] === undefined) { // If the held item is not a pickaxe (or other digging tool)
+                        mineCount = 1; // Default to 1 yield
+                      } else { // If the held item is a pickaxe (or other digging tool)
+                        mineCount = pickaxes[heldItem[0]]; // Set yield to tool's yield
                       }
-                      if (heldItem[0] === "item.tool.pick.debug") {
+                      if (heldItem[0] === "item.tool.pick.debug") { // Give the debug achievement
                         giveAchievement("debug");
                       }
-                      var resource = randomOre(biome);
-                      inventoryAdd(resource, mineCount);
-                      stats.rocks_harvested++;
-                      stats[resource + "_collected"] = stats[resource + "_collected"] + mineCount;
-                      if (stats[resource + "_collected"] === 1 && resource.includes("item.ore.")) {
-                        if (stats.rocks_harvested === 1) {
+                      var resource = randomOre(biome); // Get a random ore from the current biome
+                      inventoryAdd(resource, mineCount); // Add it to the inventory
+                      stats.rocks_harvested++; // Add to stats
+                      stats[resource + "_collected"] = stats[resource + "_collected"] + mineCount; // Add to stats
+                      if (stats[resource + "_collected"] === 1 && resource.includes("item.ore.")) { // Check if this is the first time this ore has been mined
+                        if (stats.rocks_harvested === 1) { // If it is also the first time ANY ore has been mined, wait 5 seconds before giving the achievement (so that the stone achievement can finish first)
                           setTimeout(function() {
-                            giveAchievement(resource.replace("item.ore.",""));
+                            giveAchievement(resource.replace("item.ore.","")); // Give the achievement for this ore
                           },5000);
                         } else {
-                          giveAchievement(resource.replace("item.ore.",""));
+                          giveAchievement(resource.replace("item.ore.","")); // Give the achievement for this ore
                         }
                       }
 
-                      if (stats[resource + "_collected"] === 1 && resource.includes("item.gem.")) {
-                        if (stats.rocks_harvested === 1) {
-                          setTimeout(function() {
-                            giveAchievement(resource.replace("item.gem.",""));
+                      if (stats[resource + "_collected"] === 1 && resource.includes("item.gem.")) { // If the ore is a gem, and this is the first time it's been mined
+                        if (stats.rocks_harvested === 1) { // If it is also the first time ANY ore has been mined, wait 5 seconds before giving the achievement (so that the stone achievement can finish first)
+                          setTimeout(function() { // Wait 5 seconds
+                            giveAchievement(resource.replace("item.gem.","")); // Give the achievement for this gem
                           },5000);
                         } else {
-                          giveAchievement(resource.replace("item.gem.",""));
+                          giveAchievement(resource.replace("item.gem.","")); // Give the achievement for this gem
                         }
                       }
 
-                      if (stats[resource + "_collected"] === 1 && ["item.stone","item.coal"].includes(resource)) {
-                        if (stats.rocks_harvested === 1) {
-                          setTimeout(function() {
-                            giveAchievement(resource.replace("item.",""));
+                      if (stats[resource + "_collected"] === 1 && ["item.stone","item.coal"].includes(resource)) { // If this was stone or coal
+                        if (stats.rocks_harvested === 1) { // If it is also the first time ANY ore has been mined, wait 5 seconds before giving the achievement (so that the stone achievement can finish first)
+                          setTimeout(function() { // Wait 5 seconds
+                            giveAchievement(resource.replace("item.","")); // Give achievement
                           },5000);
                         } else {
-                          giveAchievement(resource.replace("item.",""));
+                          giveAchievement(resource.replace("item.","")); // Give achievement
                         }
                       }
 
-                      if (stats.rocks_harvested === 1) {
-                        giveAchievement("mine");
+                      if (stats.rocks_harvested === 1) { // If this was the first mine
+                        giveAchievement("mine"); // Give achievement
                       }
-                      if (gemstones.includes(resource)) {
-                        if (gemstones_collected[resource] === 0) {
+                      if (gemstones.includes(resource)) { // If this was a gemstone
+                        if (gemstones_collected[resource] === 0) { // Do some stats stuff
                           gemstones_collected[resource] = 1;
                           gemstones_total += 1;
                         }
-                        if (gemstones_total === 6) {
-                          giveAchievement("shiny");
+                        if (gemstones_total === 6) { // If all the gemstones have been mined
+                          giveAchievement("shiny"); // Give achievement
                         }
                       }
-                    } else if (tiles[currentPlanet][id].resource === "item.wood") {
-                      var mineCount = 1;
-                      if (axes[heldItem[0]] === undefined) {
-                        mineCount = 1;
-                      } else {
-                        mineCount = axes[heldItem[0]];
+                    } else if (tiles[currentPlanet][id].resource === "item.wood") { // If this was wood
+                      var mineCount = 1; // Default to 1 yield
+                      if (axes[heldItem[0]] === undefined) { // If the held item isn't an axe
+                        mineCount = 1; // Default to 1 yield
+                      } else { // If the held item is an axe
+                        mineCount = axes[heldItem[0]]; // Use tool's yield
                       }
                       if (heldItem[0] === "item.tool.axe.debug") {
                         giveAchievement("debug");
                       }
-                      inventoryAdd(tiles[currentPlanet][id].resource, mineCount);
-                      stats.trees_harvested++;
-                      stats[tiles[currentPlanet][id].resource + "_collected"] = stats[tiles[currentPlanet][id].resource + "_collected"] + mineCount;
-                      if (stats.trees_harvested === 1) {
-                        giveAchievement("timber");
+                      inventoryAdd(tiles[currentPlanet][id].resource, mineCount); // add to inventory
+                      stats.trees_harvested++; // add to stats
+                      stats[tiles[currentPlanet][id].resource + "_collected"] = stats[tiles[currentPlanet][id].resource + "_collected"] + mineCount; // add to stats
+                      if (stats.trees_harvested === 1) { // if this is the first tree
+                        giveAchievement("timber"); // give achievement
                       }
                     } else {
-                      inventoryAdd(tiles[currentPlanet][id].resource);
+                      inventoryAdd(tiles[currentPlanet][id].resource); // add to inventory
                     }
-                    if (tiles[currentPlanet][id].remaining === 0) {
+                    if (tiles[currentPlanet][id].remaining === 0) { // if the resource is depleted, remove the feature and redraw
                       tiles[currentPlanet][id].feature = "";
                       tiles[currentPlanet][id].featurex = "";
                       tiles[currentPlanet][id].featurey = "";
