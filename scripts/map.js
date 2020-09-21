@@ -1147,8 +1147,8 @@ img.onload = function() {
                 }
               }
               break;
-            case 2:
-              if (debug === true) {
+            case 2: // middle
+              if (debug === true) { // if debug mode is on, teleport to location of middle click
                 var osx = Math.floor((e.pageX-$("#gridContainer").offset().left) / 32);
                 var osy = Math.floor((e.pageY-$("#gridContainer").offset().top) / 32);
                 var osid = osx + "x" + osy;
@@ -1159,7 +1159,7 @@ img.onload = function() {
                 teleport(x2, y2);
               }
               break;
-            case 3:
+            case 3: // right
               var x2 = Math.floor((e.pageX-$("#gridContainer").offset().left) / 32);
               var y2 = Math.floor((e.pageY-$("#gridContainer").offset().top) / 32);
               var id = x2 + "x" + y2;
